@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AstraTrace</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/styles.css?v=4"
+    >
+</head>
+
+<body>
+    <header class="topbar">
+        <div>
+            <p class="mission-label">Aurora-1 Mission</p>
+
+            <h1>AstraTrace</h1>
+
+            <p class="subtitle">
+                Spacecraft requirements management and verification tracking
+            </p>
+        </div>
+
+        <div class="status-pill">
+            System Online
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="dashboard">
+            <article class="metric-card">
+                <p>Total Requirements</p>
+                <strong id="total-count">0</strong>
+            </article>
+
+            <article class="metric-card">
+                <p>Verified</p>
+                <strong id="verified-count">0</strong>
+            </article>
+
+            <article class="metric-card">
+                <p>Pending Verification</p>
+                <strong id="pending-count">0</strong>
+            </article>
+
+            <article class="metric-card">
+                <p>Quality Warnings</p>
+                <strong id="warning-count">0</strong>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="section-label">Requirement Editor</p>
+                    <h2 id="form-title">Create Requirement</h2>
+                </div>
+
+                <button
+                    id="cancel-edit-button"
+                    class="secondary-button hidden"
+                    type="button"
+                >
+                    Cancel Edit
+                </button>
+            </div>
+
+            <form id="requirement-form">
+                <div class="form-grid">
+                    <label>
+                        Requirement ID
+
+                        <input
+                            id="requirement-key"
+                            type="text"
+                            placeholder="SYS-001"
+                            required
+                        >
+                    </label>
+
+                    <label>
+                        Title
+
+                        <input
+                            id="title"
+                            type="text"
+                            placeholder="Payload pointing capability"
+                            required
+                        >
+                    </label>
+
+                    <label>
+                        Requirement Level
+
+                        <select id="level" required>
+                            <option value="Mission">Mission</option>
+                            <option value="System">System</option>
+                            <option value="Subsystem">Subsystem</option>
+                            <option value="Component">Component</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Owner
+
+                        <input
+                            id="owner"
+                            type="text"
+                            placeholder="Systems Engineering"
+                            required
+                        >
+                    </label>
+
+                    <label>
+                        Parent Requirement
+
+                        <input
+                            id="parent-requirement-key"
+                            type="text"
+                            placeholder="MIS-001 or leave blank"
+                        >
+                    </label>
+
+                    <label>
+                        Verification Method
+
+                        <select
+                            id="verification-method"
+                            required
+                        >
+                            <option value="Test">Test</option>
+                            <option value="Analysis">Analysis</option>
+                            <option value="Inspection">Inspection</option>
+                            <option value="Demonstration">
+                                Demonstration
+                            </option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Verification Status
+
+                        <select
+                            id="verification-status"
+                            required
+                        >
+                            <option value="Not Started">
+                                Not Started
+                            </option>
+                            <option value="Planned">Planned</option>
+                            <option value="In Progress">
+                                In Progress
+                            </option>
+                            <option value="Passed">Passed</option>
+                            <option value="Failed">Failed</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label>
+                    Requirement Statement
+
+                    <textarea
+                        id="statement"
+                        rows="4"
+                        placeholder="The spacecraft shall..."
+                        required
+                    ></textarea>
+                </label>
+
+                <label>
+                    Rationale
+
+                    <textarea
+                        id="rationale"
+                        rows="3"
+                        placeholder="Explain why this requirement exists."
+                    ></textarea>
+                </label>
+
+                <div
+                    id="quality-preview"
+                    class="quality-preview hidden"
+                ></div>
+
+                <div class="form-actions">
+                    <button
+                        id="submit-button"
+                        type="submit"
+                    >
+                        Create Requirement
+                    </button>
+
+                    <p id="form-message"></p>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="section-label">Requirement Database</p>
+                    <h2>Requirements</h2>
+                </div>
+
+                <div class="database-actions">
+                    <p id="visible-count">0 shown</p>
+
+                    <button
+                        id="export-button"
+                        type="button"
+                        class="secondary-button"
+                    >
+                        Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Search by ID, title, statement, or owner"
+                >
+
+                <select id="level-filter">
+                    <option value="All">All Levels</option>
+                    <option value="Mission">Mission</option>
+                    <option value="System">System</option>
+                    <option value="Subsystem">Subsystem</option>
+                    <option value="Component">Component</option>
+                </select>
+
+                <select id="status-filter">
+                    <option value="All">All Statuses</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Planned">Planned</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Passed">Passed</option>
+                    <option value="Failed">Failed</option>
+                </select>
+            </div>
+
+            <div
+                id="requirements-list"
+                class="requirements-list"
+            ></div>
+        </section>
+    </main>
+
+    <script src="/static/app.js?v=4"></script>
+</body>
+</html>
