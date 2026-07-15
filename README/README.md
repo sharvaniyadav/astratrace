@@ -48,7 +48,7 @@ The quality checker flags wording that may be vague, non-mandatory, or difficult
 
 ## Disclaimer
 
-This is a fictional, independent educational project. It does not reproduce or contain proprietary software, data, or workflows from Kepler Communications or any other company.
+This is a fictional, independent educational project. It does not reproduce or contain proprietary software, data, or workflows from any company.
 
 ## Running the Application
 
